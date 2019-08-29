@@ -1,0 +1,7 @@
+Basic tending system works based on #tag and its count e.g. how many times it has been shared in particular geography,You can go with Heap data structure when designing such system, say for example you wanna find out the top k trending keywords in you application/website,you can create heap of  k #tag based on count (its should be max-heap).
+
+Algorithm:
+Create max heap of size k. Time to build the heap will be O(k).
+For every new #tag compare its count with existing root (#tag) count if its greater then root count , replace root with this node (#tag, count) and call heapify to maintain the max-heap property. Heapify will take O(logk) time.
+Sort the heap if you're interested in ordering, it will take O(klogk) to sort the heap.                                                                                                                 
+At any time t heap will only contain the top k trending keywords.
