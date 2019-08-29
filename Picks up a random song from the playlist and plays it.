@@ -1,0 +1,109 @@
+Please refer this link for understanding the only theory and not the code
+https://www.programcreek.com/2014/08/leetcode-shuffle-an-array-java/
+
+Randonly selects an element in an array
+
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+
+int main ()
+{
+  srand ( time(NULL) ); //initialize the random seed
+  
+
+  const char arrayNum[4] = {'1', '3', '7', '9'};
+  int RandIndex = rand() % 4; //generates a random number between 0 and 3
+  cout << arrayNum[RandIndex];
+}
+Shuffle a given array using Fisher–Yates shuffle Algorithm
+Given an array, write a program to generate a random permutation of array elements. This question is also asked as “shuffle a deck of cards” or “randomize a given array”. Here shuffle means that every permutation of array element should equally likely.
+
+shuffle-array
+Let the given array be arr[]. A simple solution is to create an auxiliary array temp[] which is initially a copy of arr[]. Randomly select an element from temp[], copy the randomly selected element to arr[0] and remove the selected element from temp[]. Repeat the same process n times and keep copying elements to arr[1], arr[2], … . The time complexity of this solution will be O(n^2).
+
+Fisher–Yates shuffle Algorithm works in O(n) time complexity. The assumption here is, we are given a function rand() that generates random number in O(1) time.
+The idea is to start from the last element, swap it with a randomly selected element from the whole array (including last). Now consider the array from 0 to n-2 (size reduced by 1), and repeat the process till we hit the first element.
+
+Following is the detailed algorithm
+
+To shuffle an array a of n elements (indices 0..n-1):
+  for i from n - 1 downto 1 do
+       j = random integer with 0 <= j <= i
+       exchange a[j] and a[i]
+Following is implementation of this algorithm.
+
+filter_none
+edit
+play_arrow
+
+brightness_4
+// C++ Program to shuffle a given array  
+#include<bits/stdc++.h>  
+#include <stdlib.h>  
+#include <time.h>  
+using namespace std;  
+  
+// A utility function to swap to integers  
+void swap (int *a, int *b)  
+{  
+    int temp = *a;  
+    *a = *b;  
+    *b = temp;  
+}  
+  
+// A utility function to print an array  
+void printArray (int arr[], int n)  
+{  
+    for (int i = 0; i < n; i++)  
+        cout << arr[i] << " ";  
+    cout << "\n";  
+}  
+  
+// A function to generate a random  
+// permutation of arr[]  
+void randomize (int arr[], int n)  
+{  
+    // Use a different seed value so that  
+    // we don't get same result each time 
+    // we run this program  
+    srand (time(NULL));  
+  
+    // Start from the last element and swap  
+    // one by one. We don't need to run for  
+    // the first element that's why i > 0  
+    for (int i = n - 1; i > 0; i--)  
+    {  
+        // Pick a random index from 0 to i  
+        int j = rand() % (i + 1);  
+  
+        // Swap arr[i] with the element  
+        // at random index  
+        swap(&arr[i], &arr[j]);  
+    }  
+}  
+  
+// Driver Code 
+int main()  
+{  
+    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8};  
+    int n = sizeof(arr) / sizeof(arr[0]);  
+    randomize (arr, n);  
+    printArray(arr, n);  
+  
+    return 0;  
+}  
+  
+// This code is contributed by  
+// rathbhupendra 
+
+Output :
+7 8 4 6 3 1 2 5
+The above function assumes that rand() generates a random number.
+
+Time Complexity: O(n), assuming that the function rand() takes O(1) time.
+
+
+So, after the random shuffling of 0 to n-1, we will play the songs of the array in the order. Once all songs are played we will repeat the above step again.
+
+
